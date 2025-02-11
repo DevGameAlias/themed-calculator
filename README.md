@@ -1,70 +1,120 @@
-# Getting Started with Create React App
+#  Techy Holographic Calculator
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A **futuristic, glass-themed calculator** with **holographic floating buttons**, **electric surge animations**, and a **dynamic lightning effect** when entering numbers. This sleek, modern design enhances user experience by making interactions **visually engaging**.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🔹 Features
 
-### `npm start`
+### **Futuristic Glass UI**
+- A **semi-transparent, frosted glass effect**.
+- **Dynamic reflections** that subtly shift over time.
+- **Soft neon glow** around the edges for a high-tech look.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### **Holographic Floating Buttons**
+- Buttons appear to **hover** over the glass surface.
+- **Electric pulses** flow from the buttons to the display when clicked.
+- Smooth **hover and click animations**.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### **Lightning Surge Display**
+- When a number is clicked, **energy beam** across the display.
+- The effect makes the calculator feel **alive and interactive**.
 
-### `npm test`
+### **Smart Operator Handling**
+- Users must **enter a number before an operator**.
+- Clicking an operator replaces the **previous** operator instead of stacking.
+- **Toggle positive/negative numbers** using `+/-`.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### **Error Handling & Input Corrections**
+- Prevents multiple consecutive operators.
+- Handles incorrect input gracefully.
+- **Real-time feedback** when entering numbers or operations.
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Installation & Setup
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### **Clone the Repository**
+```sh
+git clone https://github.com/yourusername/techy-calculator.git
+cd techy-calculator
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### **Install Dependencies**
+```sh
+npm install
+```
 
-### `npm run eject`
+### **Start the Application**
+```sh
+npm start
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+This will run the app in development mode. Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Technologies Used
+- **React.js** - Component-based UI
+- **CSS Animations** - Lightning effects, reflections, and button floating
+- **React Hooks (`useState`)** - State management for calculations
+- **ESLint** - Ensuring clean and error-free code
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+## File Structure
+```
+techy-calculator/
+│── src/
+│   ├── App.js        # Main calculator logic
+│   ├── App.css       # Styling & animations
+│   ├── index.js      # Entry point
+│── public/
+│   ├── index.html    # Root HTML file
+│── package.json      # Dependencies & scripts
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Usage
+### **Basic Operations**
+- Click numbers to enter values.
+- Use **`+ - * /`** for basic arithmetic.
+- Click **`=`** to compute results.
+- Use **`C`** to clear the screen.
+- Use **`+/-`** to toggle number sign.
 
-### Code Splitting
+### **Smart Operator Handling**
+| Input Sequence  | Stored Expression  |
+|----------------|-------------------|
+| `5 + *`        | `5 *` *(Replaces `+` with `*`)* |
+| `8 / -`        | `8 -` *(Replaces `/` with `-`)* |
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+---
 
-### Analyzing the Bundle Size
+## Design Highlights
+- **Glass Pane:** A frosted glass panel with glowing edges.
+- **Buttons:** Floating, soft-glowing neon buttons.
+- **Lightning Effect:** Flashes across the display on number input.
+- **Reflections:** Subtle movements across the glass.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+---
 
-### Making a Progressive Web App
+## Future Enhancements
+- **Memory Functions:** `M+`, `M-`, `MR` for memory recall.
+- **Scientific Functions:** `sin`, `cos`, `tan`, `log`.
+- **Theming Options:** Dark mode, cyberpunk, and neon themes.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+---
 
-### Advanced Configuration
+##  Credits
+Developed by **Ricardo Lugo** 🚀 with inspiration from modern tech interfaces.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+**Suggestions & Contributions are Welcome!** Open a PR or issue on GitHub!
 
-### Deployment
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+##  License
+This project is licensed under the **Apache 2.0 License**. Feel free to modify and distribute!
 
-### `npm run build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
