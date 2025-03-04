@@ -1,9 +1,18 @@
+import React from "react";
+import { Helmet } from "react-helmet";
 import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHistory } from "@fortawesome/free-solid-svg-icons";
 import "./App.css";
 
 function App() {
-  const [input, setInput] = useState(""); // Stores user input
+  const [display, setDisplay] = useState(""); // Stores current input
+  const [storedValue, setStoredValue] = useState(""); // Stores the first number
+  const [operator, setOperator] = useState(""); // Stores the operator
   const [animate, setAnimate] = useState(false); // Controls animation effects
+  const [history, setHistory] = useState([]); // Stores history of calculations
+  const [showHistory, setShowHistory] = useState(false); // Controls visibility of history
+  const [resultShown, setResultShown] = useState(false); // Tracks if a result is shown
 
   // Determines if a character is an operator
   const isOperator = (char) => ["+", "-", "*", "/"].includes(char);
@@ -11,49 +20,72 @@ function App() {
   // Handles button clicks and updates the display accordingly
   const handleClick = (value) => {
     if (value === "=") {
-      try {
-        setInput(eval(input).toString()); // Evaluate the input safely
-      } catch {
-        setInput("Error");
+      if (storedValue !== "" && operator !== "" && display !== "") {
+        try {
+          const result = eval(`${storedValue}${operator}${display}`);
+          const roundedResult = Math.round(result * 100) / 100; // Round to 2 decimal places
+          setHistory([...history, `${storedValue} ${operator} ${display} = ${roundedResult}`]);
+          setDisplay(roundedResult.toString());
+          setStoredValue("");
+          setOperator("");
+          setResultShown(true);
+        } catch {
+          setDisplay("Error");
+        }
       }
     } else if (value === "C") {
-      setInput(""); // Clear display
+      setDisplay(""); // Clear display
+      setStoredValue("");
+      setOperator("");
     } else if (value === "+/-") {
       // Toggle positive/negative sign
-      if (input && !isOperator(input.slice(-1))) {
-        setInput((prev) =>
-          prev.charAt(0) === "-" ? prev.slice(1) : "-" + prev
-        );
+      if (display && !isOperator(display.slice(-1))) {
+        setDisplay((prev) => (prev.charAt(0) === "-" ? prev.slice(1) : "-" + prev));
       }
     } else if (isOperator(value)) {
-      setInput((prev) => {
-        if (prev === "" || isOperator(prev)) return prev; // Prevents operator as first character
-  
-        if (isOperator(prev.slice(-1))) {
-          // If last input is an operator, replace it
-          return prev.slice(0, -1) + value;
-        }
-  
-        return prev + value; // Otherwise, add operator normally
-      });
+      if (display !== "") {
+        setStoredValue(display);
+        setDisplay("");
+        setOperator(value);
+      } else if (storedValue !== "") {
+        setOperator(value);
+      }
     } else {
-      setInput((prev) => prev + value); // Adds numbers as usual
-  
+      if (resultShown) {
+        setDisplay(value); // Replace result with new number
+        setResultShown(false);
+      } else {
+        setDisplay((prev) => prev + value); // Adds numbers as usual
+      }
+
       // ⚡ Trigger Lightning Effect on Number Click
       setAnimate(true);
       setTimeout(() => setAnimate(false), 200);
     }
   };
-  
-  
+
+  const handleDelete = () => {
+    setDisplay((prev) => prev.slice(0, -1));
+  };
+
+  const toggleHistory = () => {
+    setShowHistory((prev) => !prev);
+  };
+
+  const closeHistory = () => {
+    setShowHistory(false);
+  };
 
   return (
-    <div className="parchment-bg flex items-center justify-center min-h-screen">
+    <div className="parchment-bg flex items-center justify-center min-h-screen relative">
+      <Helmet>
+        <title>Themed-Calculator</title>
+        <meta name="description" content="A themed calculator with a techy glass pane design and interactive history panel." />
+        <meta name="keywords" content="calculator, themed calculator, techy design, glass pane, interactive history" />
+      </Helmet>
       <div className="techy-glass">
         {/* Display Section */}
-        <div className={`mirror-display ${animate ? "pulse-effect surge-effect" : ""}`}>
-          {input || "0"}
-        </div>
+        <div className={`mirror-display ${animate ? "pulse-effect surge-effect" : ""}`}>{display || "0"}</div>
 
         {/* Button Grid */}
         <div className="button-container">
@@ -75,21 +107,42 @@ function App() {
             { label: "=", value: "=" },
             { label: "+", value: "+" },
           ].map((btn, index) => (
-            <button
-              key={index}
-              className="holographic-button"
-              onClick={() => handleClick(btn.value)}
-            >
+            <button key={index} className="holographic-button" onClick={() => handleClick(btn.value)}>
               {btn.label}
             </button>
           ))}
         </div>
 
-        {/* Large Clear Button */}
-        <button className="clear-button" onClick={() => handleClick("C")}>
-          C
-        </button>
+        {/* Utility Buttons */}
+        <div className="utility-buttons">
+          <button className="clear-button" onClick={() => handleClick("C")}>
+            C
+          </button>
+          <button className="utility-button" onClick={handleDelete}>
+            DEL
+          </button>
+          <button className="utility-button" onClick={toggleHistory}>
+            <FontAwesomeIcon icon={faHistory} />
+          </button>
+        </div>
       </div>
+
+      {/* History Panel */}
+      {showHistory && (
+        <div className="history-panel">
+          <div className="history-header">
+            <h2>History</h2>
+            <button className="close-button" onClick={closeHistory}>
+              X
+            </button>
+          </div>
+          <ul>
+            {history.map((entry, index) => (
+              <li key={index}>{entry}</li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
