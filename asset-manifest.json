@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/themed-calculator/static/css/main.9b993548.css",
+    "main.js": "/themed-calculator/static/js/main.7404212b.js",
+    "index.html": "/themed-calculator/index.html",
+    "main.9b993548.css.map": "/themed-calculator/static/css/main.9b993548.css.map",
+    "main.7404212b.js.map": "/themed-calculator/static/js/main.7404212b.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9b993548.css",
+    "static/js/main.7404212b.js"
+  ]
+}
